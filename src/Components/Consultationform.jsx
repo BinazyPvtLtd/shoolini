@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const ConsultationForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -21,7 +23,7 @@ const ConsultationForm = () => {
 
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbyN8rzGLmXq26wKw1qnzNrSA7wh3ZXBvLYHprEII5X4JC-Q28oo8UkGbyHv6rG7GVCeHw/exec",
+        "https://script.google.com/macros/s/AKfycbzv6KnPnqYc_MiN6tLjfEkCAUHzgs-S7X6UiCs5eGH-M6VglGBFfrrZL1fEZnExft52qw/exec",
         {
           method: "POST",
           headers: {
@@ -36,6 +38,7 @@ const ConsultationForm = () => {
       }
 
       setIsSuccess(true);
+      navigate("/thank-you");
       reset();
     } catch (error) {
       console.error("Submission error:", error);
@@ -53,7 +56,8 @@ const ConsultationForm = () => {
             Cost Free Consultation
           </h2>
           <p className="mt-1 text-sm leading-6 text-gray-500">
-            From Higher Experience Counselor
+            We are an independent education counselling platform helping
+            students explore and compare online degree programs.
           </p>
         </div>
 
@@ -67,31 +71,16 @@ const ConsultationForm = () => {
           <div>
             <input
               type="text"
-              placeholder="Enter Your Name"
-              {...register("name", { required: "Name is required" })}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-black"
-            />
-            {errors.name && (
-              <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
-            )}
-          </div>
-
-          <div>
-            <input
-              type="email"
-              placeholder="Enter Your Email"
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Please enter a valid email address",
-                },
+              placeholder="Full Name"
+              {...register("fullName", {
+                required: "Full name is required",
+                setValueAs: (value) => value.trim(),
               })}
               className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-black"
             />
-            {errors.email && (
+            {errors.fullName && (
               <p className="text-red-500 text-xs mt-1">
-                {errors.email.message}
+                {errors.fullName.message}
               </p>
             )}
           </div>
@@ -99,81 +88,113 @@ const ConsultationForm = () => {
           <div>
             <input
               type="tel"
-              placeholder="Enter Your Number"
-              {...register("number", {
-                required: "Phone number is required",
+              placeholder="Mobile Number"
+              {...register("mobileNumber", {
+                required: "Mobile number is required",
                 setValueAs: (value) => value.trim(),
                 pattern: {
                   value: /^(?:\+91[\s-]?|91[\s-]?)?[6-9]\d{9}$/,
-                  message: "Please enter a valid 10 digit phone number",
+                  message: "Please enter a valid 10 digit mobile number",
                 },
               })}
               className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-black"
             />
-            {errors.number && (
+            {errors.mobileNumber && (
               <p className="text-red-500 text-xs mt-1">
-                {errors.number.message}
+                {errors.mobileNumber.message}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <input
+              type="email"
+              placeholder="Email Address"
+              {...register("emailAddress", {
+                required: "Email address is required",
+                setValueAs: (value) => value.trim(),
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Please enter a valid email address",
+                },
+              })}
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-black"
+            />
+            {errors.emailAddress && (
+              <p className="text-red-500 text-xs mt-1">
+                {errors.emailAddress.message}
               </p>
             )}
           </div>
 
           <div>
             <select
-              {...register("course", { required: "Please select a course" })}
+              {...register("preferredMbaSpecialization", {
+                required: "Please select your preferred MBA specialization",
+              })}
               className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-black">
-              <option value="">Select Your Course</option>
-              <option value="MBA">MBA</option>
-              <option value="MCA">MCA</option>
-              <option value="MA">MA</option>
-              <option value="BBA">BBA</option>
-              <option value="BCOM">BCOM</option>
-              <option value="BCA">BCA</option>
+              <option value="">Preferred MBA Specialization</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Finance">Finance</option>
+              <option value="Human Resource Management">
+                Human Resource Management
+              </option>
+              <option value="International Business">
+                International Business
+              </option>
+              <option value="Operations Management">
+                Operations Management
+              </option>
+              <option value="Business Analytics">Business Analytics</option>
+              <option value="Information Technology">
+                Information Technology
+              </option>
+              <option value="Not sure">Not sure</option>
             </select>
-            {errors.course && (
+            {errors.preferredMbaSpecialization && (
               <p className="text-red-500 text-xs mt-1">
-                {errors.course.message}
+                {errors.preferredMbaSpecialization.message}
               </p>
             )}
           </div>
 
           <div>
             <select
-              {...register("state", { required: "Please select your state" })}
+              {...register("currentQualification", {
+                required: "Please select your current qualification",
+              })}
               className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-black">
-              <option value="">Select Your State</option>
-              <option value="Andhra Pradesh">Andhra Pradesh</option>
-              <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-              <option value="Assam">Assam</option>
-              <option value="Bihar">Bihar</option>
-              <option value="Chhattisgarh">Chhattisgarh</option>
-              <option value="Delhi">Delhi</option>
-              <option value="Goa">Goa</option>
-              <option value="Gujarat">Gujarat</option>
-              <option value="Haryana">Haryana</option>
-              <option value="Himachal Pradesh">Himachal Pradesh</option>
-              <option value="Jharkhand">Jharkhand</option>
-              <option value="Karnataka">Karnataka</option>
-              <option value="Kerala">Kerala</option>
-              <option value="Madhya Pradesh">Madhya Pradesh</option>
-              <option value="Maharashtra">Maharashtra</option>
-              <option value="Manipur">Manipur</option>
-              <option value="Meghalaya">Meghalaya</option>
-              <option value="Mizoram">Mizoram</option>
-              <option value="Nagaland">Nagaland</option>
-              <option value="Odisha">Odisha</option>
-              <option value="Punjab">Punjab</option>
-              <option value="Rajasthan">Rajasthan</option>
-              <option value="Sikkim">Sikkim</option>
-              <option value="Tamil Nadu">Tamil Nadu</option>
-              <option value="Telangana">Telangana</option>
-              <option value="Tripura">Tripura</option>
-              <option value="Uttar Pradesh">Uttar Pradesh</option>
-              <option value="Uttarakhand">Uttarakhand</option>
-              <option value="West Bengal">West Bengal</option>
+              <option value="">Current Qualification</option>
+              <option value="12th Pass">12th Pass</option>
+              <option value="Diploma">Diploma</option>
+              <option value="Graduate">Graduate</option>
+              <option value="Postgraduate">Postgraduate</option>
+              <option value="Working Professional">Working Professional</option>
+              <option value="Other">Other</option>
             </select>
-            {errors.state && (
+            {errors.currentQualification && (
               <p className="text-red-500 text-xs mt-1">
-                {errors.state.message}
+                {errors.currentQualification.message}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <select
+              {...register("workExperience", {
+                required: "Please select your work experience",
+              })}
+              className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-black">
+              <option value="">Work Experience (if applicable)</option>
+              <option value="Fresher">Fresher</option>
+              <option value="0-1 Year">0-1 Year</option>
+              <option value="1-3 Years">1-3 Years</option>
+              <option value="3-5 Years">3-5 Years</option>
+              <option value="5+ Years">5+ Years</option>
+            </select>
+            {errors.workExperience && (
+              <p className="text-red-500 text-xs mt-1">
+                {errors.workExperience.message}
               </p>
             )}
           </div>
@@ -187,8 +208,8 @@ const ConsultationForm = () => {
               className="mt-1"
             />
             <p className="text-xs leading-5 text-gray-600">
-              I authorize a representative to contact me via phone and/or email.
-              This will override registry on DND/NDNC.
+              By submitting this form, you agree to our Privacy Policy and Terms
+              & Conditions.
             </p>
           </div>
           {errors.terms && (

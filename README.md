@@ -30,8 +30,9 @@ A small React + Vite landing page for an educational or placement-focused servic
 
 - `src/main.jsx` - application entry
 - `src/App.jsx` - root component
-- `src/Components/` - UI components and page sections
-- `src/Pages/Home.jsx` - home page layout
+- `src/components/` - reusable UI components and page sections
+- `src/pages/` - route-level page components
+- `src/pages/Home.jsx` - home page layout
 
 ## Getting Started
 
@@ -47,4 +48,12 @@ A small React + Vite landing page for an educational or placement-focused servic
 
 ## Notes
 
-This repository is a lightweight front-end project for a small educational landing page.
+This repository is a lightweight front-end project for a educational Website.
+
+Shoolini University Pages
+Home Page
+About Page
+contact Page
+Privacy Policy Page
+Terms and Conditions
+Disclaimer

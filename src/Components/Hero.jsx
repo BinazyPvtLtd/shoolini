@@ -1,4 +1,4 @@
-import ConsultationForm from "./Consultationform";
+import ConsultationForm from "./ConsultationForm";
 
 const Hero = ({ onOpenForm }) => {
   return (
@@ -11,10 +11,10 @@ const Hero = ({ onOpenForm }) => {
             </span>
 
             <div>
-              <h1 className="text-3xl font-bold leading-tight text-red-600 sm:text-4xl lg:text-5xl">
+              <h1 className="text-3xl font-bold leading-tight text-red-600 sm:text-4xl lg:text-4xl">
                 Shoolini University
                 <br />
-                Online Degree Programs
+                Online MBA: Fees, Admission, Eligibility & Placements 2026
               </h1>
 
               <p className="mt-3 max-w-xl text-base leading-7 text-gray-700 sm:mt-4 sm:text-lg">

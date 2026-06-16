@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Phone } from "lucide-react";
-import logo from "../assets/Logo.webp";
+import { Link } from "react-router-dom";
+import { Menu, Phone, X } from "lucide-react";
+import logo from "../assets/Logo.png";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -8,115 +9,110 @@ const Navbar = () => {
   const phoneHref = "tel:+919205780885";
 
   const navLinks = [
-    { label: "Programme", href: "#programme" },
-    { label: "Approvals", href: "#approvals" },
-    { label: "About Us", href: "#about-us" },
-    { label: "Why Us", href: "#why-us" },
+    { label: "Programme", hash: "#programme" },
+    { label: "Approvals", hash: "#approvals" },
+    { label: "Why Us", hash: "#why-us" },
+    { label: "About Us", to: "/aboutus" },
+    { label: "Contact Us", to: "/contactus" },
+    { label: "Privacy Policy", to: "/privacy-policy" },
+    { label: "Terms & Conditions", to: "/terms-and-conditions" },
+    { label: "Disclaimer", to: "/disclaimer" },
   ];
 
+  const renderNavLink = (link, className, onClick) =>
+    link.to ? (
+      <Link to={link.to} className={className} onClick={onClick}>
+        {link.label}
+      </Link>
+    ) : link.hash ? (
+      <Link
+        to={{ pathname: "/", hash: link.hash }}
+        className={className}
+        onClick={onClick}>
+        {link.label}
+      </Link>
+    ) : (
+      <a href={link.href} className={className} onClick={onClick}>
+        {link.label}
+      </a>
+    );
+
   return (
-    <header className="w-full bg-white shadow-sm">
-      <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 sm:px-6 md:py-4">
+    <header className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:py-4">
         {/* Logo */}
-        <div className="flex items-center shrink-0">
+        <Link
+          to="/"
+          className="flex shrink-0 items-center rounded-md "
+          aria-label="Go to home">
           <img
             src={logo}
-            className="h-12 w-auto object-contain sm:h-16"
+            className="h-12 w-auto object-contain sm:h-14 lg:h-16"
             alt="Logo"
           />
-        </div>
+        </Link>
 
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden items-center gap-4 lg:flex">
           {/* Desktop Nav Links */}
-          <ul className="flex items-center gap-8">
+          <ul className="flex items-center gap-1 rounded-full border border-gray-100 bg-gray-50 px-2 py-1.5">
             {navLinks.map((link) => (
-              <li
-                key={link.href}
-                className="text-base font-medium text-gray-700 transition hover:text-black lg:text-lg"
-              >
-                <a href={link.href}>{link.label}</a>
+              <li key={link.to || link.hash || link.href}>
+                {renderNavLink(
+                  link,
+                  "block whitespace-nowrap rounded-full px-3 py-2 text-sm font-semibold text-gray-700 transition hover:bg-white hover:text-red-600 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 xl:px-4",
+                )}
               </li>
             ))}
           </ul>
 
           <a
             href={phoneHref}
-            className="inline-flex items-center gap-2 rounded-full bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-red-600/20 transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 lg:text-base"
-            aria-label={`Call ${phoneNumber}`}
-          >
+            className="inline-flex shrink-0 items-center gap-2 rounded-full bg-red-600 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-red-600/20 transition hover:-translate-y-0.5 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 xl:text-base"
+            aria-label={`Call ${phoneNumber}`}>
             <Phone className="h-4 w-4" aria-hidden="true" />
             {phoneNumber}
           </a>
         </div>
 
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
           <a
             href={phoneHref}
-            className="inline-flex items-center gap-1.5 rounded-full bg-red-600 px-3 py-2 text-xs font-semibold text-white shadow-md shadow-red-600/20 transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:text-sm"
-            aria-label={`Call ${phoneNumber}`}
-          >
+            className="inline-flex items-center gap-1.5 rounded-full bg-red-600 px-3 py-2 text-xs font-bold text-white shadow-md shadow-red-600/20 transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:px-4 sm:text-sm"
+            aria-label={`Call ${phoneNumber}`}>
             <Phone className="h-3.5 w-3.5" aria-hidden="true" />
             <span className="whitespace-nowrap">Call Now</span>
           </a>
 
           {/* Hamburger Button (mobile only) */}
           <button
-            className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 rounded focus:outline-none"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-800 shadow-sm transition hover:border-red-200 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
             onClick={() => setMenuOpen((prev) => !prev)}
             aria-label="Toggle menu"
-            aria-expanded={menuOpen}
-          >
-            <span
-              className={`block h-0.5 w-6 bg-gray-700 transition-all duration-300 ${
-                menuOpen ? "rotate-45 translate-y-2" : ""
-              }`}
-            />
-            <span
-              className={`block h-0.5 w-6 bg-gray-700 transition-all duration-300 ${
-                menuOpen ? "opacity-0" : ""
-              }`}
-            />
-            <span
-              className={`block h-0.5 w-6 bg-gray-700 transition-all duration-300 ${
-                menuOpen ? "-rotate-45 -translate-y-2" : ""
-              }`}
-            />
+            aria-expanded={menuOpen}>
+            {menuOpen ? (
+              <X className="h-5 w-5" aria-hidden="true" />
+            ) : (
+              <Menu className="h-5 w-5" aria-hidden="true" />
+            )}
           </button>
         </div>
       </nav>
 
       {/* Mobile Dropdown */}
       <div
-        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-          menuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
-        }`}
-      >
-        <ul className="flex flex-col border-t border-gray-100 px-4 py-2">
+        className={`overflow-hidden border-t border-gray-100 bg-white transition-all duration-300 ease-in-out lg:hidden ${
+          menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        }`}>
+        <ul className="mx-auto flex max-w-7xl flex-col px-4 py-3 sm:px-6">
           {navLinks.map((link) => (
-            <li
-              key={link.href}
-              className="rounded px-2 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-50 hover:text-black"
-            >
-              <a
-                href={link.href}
-                className="block"
-                onClick={() => setMenuOpen(false)}
-              >
-                {link.label}
-              </a>
+            <li key={link.to || link.hash || link.href}>
+              {renderNavLink(
+                link,
+                "block rounded-lg px-3 py-3 text-sm font-semibold text-gray-700 transition hover:bg-red-50 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2",
+                () => setMenuOpen(false),
+              )}
             </li>
           ))}
-          <li className="px-2 py-3">
-            <a
-              href={phoneHref}
-              className="flex items-center justify-center gap-2 rounded-full bg-red-600 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-red-600/20 transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-              aria-label={`Call ${phoneNumber}`}
-              onClick={() => setMenuOpen(false)}
-            >
-              <Phone className="h-4 w-4" aria-hidden="true" />
-              {phoneNumber}
-            </a>
-          </li>
         </ul>
       </div>
     </header>

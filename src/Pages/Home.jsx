@@ -1,14 +1,12 @@
 import { useState } from "react";
-import Navbar from "../Components/Navbar";
-import Hero from "../Components/Hero";
-import Ranking from "../Components/Ranking";
-import Courses from "../Components/Courses";
-import Payafter from "../Components/payafter";
-import WhyUs from "../Components/WhyUs";
-import PlacementCompanies from "../Components/ThinkPlacement";
-import FAQSection from "../Components/FAQ";
-import Footer from "../Components/Footer";
-import ConsultationModal from "../Components/ConsultationModal";
+import Hero from "../components/Hero";
+import Ranking from "../components/Ranking";
+import Courses from "../components/Courses";
+import PayAfter from "../components/PayAfter";
+import WhyUs from "../components/WhyUs";
+import PlacementCompanies from "../components/ThinkPlacement";
+import FAQSection from "../components/FAQ";
+import ConsultationModal from "../components/ConsultationModal";
 
 const Home = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -18,15 +16,13 @@ const Home = () => {
 
   return (
     <>
-      <Navbar />
       <Hero onOpenForm={openForm} />
       <Ranking />
       <Courses onOpenForm={openForm} />
-      <Payafter />
+      <PayAfter />
       <WhyUs />
       <PlacementCompanies />
       <FAQSection />
-      <Footer />
       <ConsultationModal isOpen={isFormOpen} onClose={closeForm} />
     </>
   );

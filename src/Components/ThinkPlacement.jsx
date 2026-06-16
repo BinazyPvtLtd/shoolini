@@ -2,13 +2,13 @@ import img1 from "../assets/company1.webp";
 import img2 from "../assets/company2.webp";
 import img3 from "../assets/company3.webp";
 import img4 from "../assets/company4.webp";
-import img5 from "../assets/compnay5.webp";
-import img6 from "../assets/compnay6.webp";
+import img5 from "../assets/company5.webp";
+import img6 from "../assets/company6.webp";
 import img7 from "../assets/company7.webp";
 import img8 from "../assets/company8.webp";
-import img9 from "../assets/compnay8.webp";
+import img9 from "../assets/company9.webp";
 import img10 from "../assets/company10.webp";
-import img11 from "../assets/compnay11.webp";
+import img11 from "../assets/company11.webp";
 import img12 from "../assets/company1.webp";
 
 const companies = [

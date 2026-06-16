@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import ConsultationForm from "./Consultationform";
+import ConsultationForm from "./ConsultationForm";
 
 const ConsultationModal = ({ isOpen, onClose }) => {
   if (!isOpen) {

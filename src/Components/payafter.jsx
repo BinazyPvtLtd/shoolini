@@ -1,6 +1,6 @@
 import pap from "../assets/pap.webp";
 
-const PayAfterPlacement = () => {
+const PayAfter = () => {
   return (
     <section
       id="about-us"
@@ -55,4 +55,4 @@ const PayAfterPlacement = () => {
   );
 };
 
-export default PayAfterPlacement;
+export default PayAfter;
